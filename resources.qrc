@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/arteria_background.png</file>
+        <file>styles/global.css</file>
+    </qresource>
+</RCC>
