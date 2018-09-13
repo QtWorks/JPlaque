@@ -25,11 +25,15 @@ CONFIG += c++11
 SOURCES += \
     src/canvas.cpp \
     src/main.cpp \
-    src/mainwindow.cpp
+    src/mainwindow.cpp \
+    src/imagebuffer.cpp
 
 HEADERS += \
     src/canvas.h \
-    src/mainwindow.h
+    src/mainwindow.h \
+    src/drawable.h \
+    src/animatedobject.h \
+    src/imagebuffer.h
 
 FORMS +=
 

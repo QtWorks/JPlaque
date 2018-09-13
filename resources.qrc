@@ -2,5 +2,21 @@
     <qresource prefix="/">
         <file>images/arteria_background.png</file>
         <file>styles/global.css</file>
+        <file>images/arteria_fog.png</file>
+        <file>images/arteria_foreground.png</file>
+        <file>images/bloodcell.png</file>
+        <file>images/leukozyt.png</file>
+        <file>images/numbers_0.png</file>
+        <file>images/numbers_1.png</file>
+        <file>images/numbers_2.png</file>
+        <file>images/numbers_3.png</file>
+        <file>images/numbers_4.png</file>
+        <file>images/numbers_5.png</file>
+        <file>images/numbers_6.png</file>
+        <file>images/numbers_7.png</file>
+        <file>images/numbers_8.png</file>
+        <file>images/numbers_9.png</file>
+        <file>images/player.png</file>
+        <file>images/seeker.png</file>
     </qresource>
 </RCC>
