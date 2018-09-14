@@ -20,8 +20,8 @@ void MainWindow::buildContentHolder(){
 }
 
 void runningUpdater(Canvas * target){
-    for (int i = 0; i < 10000; i++){
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    while (true){
+        std::this_thread::sleep_for(std::chrono::milliseconds(16));
         target->update();
     }
 }

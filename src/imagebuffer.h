@@ -4,12 +4,13 @@
 #include <QPixmap>
 #include <QString>
 #include <memory>
+#include <iostream>
 
 using std::shared_ptr;
 using std::make_shared;
 
 namespace {
-    const QString QSTR_BACKGROUND_01{":/image/arteria_background.png"};
+    const QString QSTR_BACKGROUND_01{":/images/arteria_background.png"};
 }
 
 class ImageBuffer final {
@@ -25,7 +26,7 @@ public:
         BACKGROUND_01
     };
     static ImageBuffer& getInstance(){
-        static ImageBuffer instance{};
+        static ImageBuffer instance;
         return instance;
     }
     shared_ptr<QPixmap> getImage(Image);

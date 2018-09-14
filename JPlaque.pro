@@ -26,14 +26,16 @@ SOURCES += \
     src/canvas.cpp \
     src/main.cpp \
     src/mainwindow.cpp \
-    src/imagebuffer.cpp
+    src/imagebuffer.cpp \
+    src/ambient.cpp
 
 HEADERS += \
     src/canvas.h \
     src/mainwindow.h \
     src/drawable.h \
     src/animatedobject.h \
-    src/imagebuffer.h
+    src/imagebuffer.h \
+    src/ambient.h
 
 FORMS +=
 

@@ -7,7 +7,7 @@ class Drawable {
 public:
     explicit Drawable() = default;
     virtual ~Drawable() = default;
-    virtual void draw(QPainter&) = 0;
+    virtual void draw(QPainter&) const = 0;
 };
 
 #endif // DRAWABLE_H

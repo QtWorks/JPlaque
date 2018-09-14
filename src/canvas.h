@@ -6,6 +6,13 @@
 #include <QPixmap>
 #include <QWidget>
 
+#include <vector>
+
+#include "imagebuffer.h"
+#include "ambient.h"
+
+using std::vector;
+
 class Canvas : public QWidget
 {
     Q_OBJECT
@@ -23,10 +30,10 @@ signals:
 public slots:
 
 private:
-    QPixmap background;
-    QSize   size;
-    int     width;
-    int     height;
+    vector<shared_ptr<Drawable>> objects;
+    QSize            size;
+    int              width;
+    int              height;
 };
 
 #endif // CANVAS_H
