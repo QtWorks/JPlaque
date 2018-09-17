@@ -27,7 +27,8 @@ SOURCES += \
     src/main.cpp \
     src/mainwindow.cpp \
     src/imagebuffer.cpp \
-    src/ambient.cpp
+    src/ambient.cpp \
+    src/game.cpp
 
 HEADERS += \
     src/canvas.h \
@@ -35,7 +36,8 @@ HEADERS += \
     src/drawable.h \
     src/animatedobject.h \
     src/imagebuffer.h \
-    src/ambient.h
+    src/ambient.h \
+    src/game.h
 
 FORMS +=
 

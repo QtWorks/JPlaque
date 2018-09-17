@@ -5,9 +5,6 @@
 #include <QMainWindow>
 #include <QVBoxLayout>
 
-#include <thread>
-#include <chrono>
-
 #include "canvas.h"
 
 class MainWindow : public QMainWindow
@@ -24,7 +21,5 @@ private:
     QComboBox *contentHolder;
     Canvas    *canvas;
 };
-
-void runningUpdater(Canvas * target);
 
 #endif // MAINWINDOW_H

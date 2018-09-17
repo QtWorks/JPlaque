@@ -11,6 +11,7 @@ using std::make_shared;
 
 namespace {
     const QString QSTR_BACKGROUND_01{":/images/arteria_background.png"};
+    const QString QSTR_BACKGROUND_02{":/images/arteria_foreground.png"};
 }
 
 class ImageBuffer final {
@@ -23,7 +24,7 @@ class ImageBuffer final {
 
 public:
     enum Image{
-        BACKGROUND_01
+        BACKGROUND_01, BACKGROUND_02, NEBULAR
     };
     static ImageBuffer& getInstance(){
         static ImageBuffer instance;
