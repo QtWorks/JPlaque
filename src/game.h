@@ -3,6 +3,8 @@
 
 #include <QObject>
 #include <QPainter>
+#include <QDebug>
+#include <QKeyEvent>
 
 #include <chrono>
 #include <memory>
@@ -11,6 +13,7 @@
 
 #include "ambient.h"
 #include "imagebuffer.h"
+#include "player.h"
 
 using std::shared_ptr;
 using std::unique_ptr;
@@ -31,26 +34,24 @@ public:
     void start();
     int getMaxWidth() const { return this->maxWidth; }
     int getMaxHeight() const { return this->maxHeight; }
+    void processKeyPress(QKeyEvent *);
+    void processKeyRelease(QKeyEvent *);
 
     enum Key   {NORTH, EAST, SOUTH, WEST};
     enum State {RUNNING, GAMEOVER};
 
-public slots:
-    void processKey(Key);
-
-signals:
-    void updated();
-
 private:
-    void update();
     void run();
 
-    int           maxWidth;
-    int           maxHeight;
     State         gameState;
     ImageBuffer * imageBuffer;
     Background    background01;
     Background    background02;
+    Background    nebular;
+    int           maxWidth;
+    int           maxHeight;
+    Player        player;
+
     // Player
     // Enemies
 };

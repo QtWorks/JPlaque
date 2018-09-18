@@ -2,12 +2,21 @@
 
 ImageBuffer::ImageBuffer(){
     this->background01 = make_shared<QPixmap>();
-    this->background01->load(":/images/arteria_background.png", "PNG");
+    this->background01->load(QSTR_BACKGROUND_01);
+    this->background02 = make_shared<QPixmap>();
+    this->background02->load(QSTR_BACKGROUND_02);
+    this->nebular = make_shared<QPixmap>();
+    this->nebular->load(QSTR_NEBULAR);
+    this->player = make_shared<QPixmap>();
+    this->player->load(QSTR_PLAYER);
 }
 
 shared_ptr<QPixmap> ImageBuffer::getImage(Image type){
     switch (type){
     case BACKGROUND_01: return this->background01;
+    case BACKGROUND_02: return this->background02;
+    case NEBULAR:       return this->nebular;
+    case PLAYER:        return this->player;
     }
     return nullptr;
 }

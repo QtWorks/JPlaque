@@ -11,9 +11,9 @@ class Background final : public AnimatedObject, public Drawable
     std::shared_ptr<QPixmap> image;
     int bufferWidth;
 public:
-    Background(std::shared_ptr<QPixmap> image) : AnimatedObject(0,0,-0.5,0), image{image}, bufferWidth{image->width()} {}
-    void update() override;
+    Background(std::shared_ptr<QPixmap> image, double speedY) : AnimatedObject(0,0,speedY,0), image{image}, bufferWidth{image->width()} {}
     void draw(QPainter&) const override;
+    void update() override;
     int getWidth() { return this->bufferWidth; }
     int getHeight() { return this->image->height(); }
 };

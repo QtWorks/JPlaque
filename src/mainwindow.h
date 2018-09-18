@@ -4,6 +4,8 @@
 #include <QComboBox>
 #include <QMainWindow>
 #include <QVBoxLayout>
+#include <QKeyEvent>
+#include <QCoreApplication>
 
 #include "canvas.h"
 
@@ -13,7 +15,7 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = nullptr);
-    ~MainWindow() = default;
+    ~MainWindow();
 
 private:
     void buildContentHolder();

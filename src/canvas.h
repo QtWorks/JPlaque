@@ -4,7 +4,10 @@
 #include <QDebug>
 #include <QPainter>
 #include <QPixmap>
+#include <QTimer>
 #include <QWidget>
+
+#include <memory>
 
 #include "game.h"
 
@@ -16,15 +19,17 @@ public:
     QSize getSize() const { return this->size; }
 
 protected:
-    void paintEvent(QPaintEvent *event) override;
+    bool eventFilter(QObject *, QEvent *) override;
+    void paintEvent(QPaintEvent *) override;
 
 signals:
 
 public slots:
 
 private:
-    Game  game;
-    QSize size;
+    Game   game;
+    QTimer timer;
+    QSize  size;
 };
 
 #endif // CANVAS_H
