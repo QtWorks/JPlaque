@@ -11,7 +11,7 @@ Canvas::Canvas(QWidget *parent) :
     connect(&this->timer, SIGNAL(timeout()), this, SLOT(update()));
 
     this->game.start();
-    this->timer.setInterval(16);
+    this->timer.setInterval(5);
     this->timer.start();
 }
 

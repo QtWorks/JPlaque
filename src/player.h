@@ -19,11 +19,10 @@ namespace {
 class Player : public AnimatedObject, public Drawable
 {
     shared_ptr<QPixmap> image;
-    double              radius;
     QSize               movableArea;
 
 public:
-    Player(shared_ptr<QPixmap>, double, double, QSize);
+    Player(shared_ptr<QPixmap>, Position, QSize);
     void draw(QPainter&) const override;
     void update() override;
 

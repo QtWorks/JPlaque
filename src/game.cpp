@@ -8,7 +8,8 @@ Game::Game() :
     nebular{this->imageBuffer->getImage(ImageBuffer::Image::NEBULAR), -0.2},
     maxWidth{background01.getWidth()},
     maxHeight{background01.getHeight()},
-    player{this->imageBuffer->getImage(ImageBuffer::Image::PLAYER), 50, 100, QSize(maxWidth,maxHeight)}
+    gameTick{0},
+    player{this->imageBuffer->getImage(ImageBuffer::Image::PLAYER), Position(50, 100), QSize(maxWidth,maxHeight)}
 {
 
 }
@@ -49,6 +50,8 @@ void Game::run(){
         this->player.update();
         this->background02.update();
         this->nebular.update();
+        std::for_each(this->scoreObjects.begin(), this->scoreObjects.end(),
+                      [](ScoreObject& element){ element.update(); });
         std::this_thread::sleep_for(std::chrono::microseconds(SLEEPTIME));
     }
 }

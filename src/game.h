@@ -12,6 +12,7 @@
 #include <vector>
 
 #include "ambient.h"
+#include "consumables.h"
 #include "imagebuffer.h"
 #include "player.h"
 
@@ -43,16 +44,16 @@ public:
 private:
     void run();
 
-    State         gameState;
-    ImageBuffer * imageBuffer;
-    Background    background01;
-    Background    background02;
-    Background    nebular;
-    int           maxWidth;
-    int           maxHeight;
-    Player        player;
-
-    // Player
+    State               gameState;
+    ImageBuffer *       imageBuffer;
+    Background          background01;
+    Background          background02;
+    Background          nebular;
+    int                 maxWidth;
+    int                 maxHeight;
+    long                gameTick;
+    Player              player;
+    vector<ScoreObject> scoreObjects;
     // Enemies
 };
 

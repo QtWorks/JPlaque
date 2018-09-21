@@ -3,12 +3,18 @@
 ImageBuffer::ImageBuffer(){
     this->background01 = make_shared<QPixmap>();
     this->background01->load(QSTR_BACKGROUND_01);
+
     this->background02 = make_shared<QPixmap>();
     this->background02->load(QSTR_BACKGROUND_02);
+
     this->nebular = make_shared<QPixmap>();
     this->nebular->load(QSTR_NEBULAR);
+
     this->player = make_shared<QPixmap>();
     this->player->load(QSTR_PLAYER);
+
+    this->erythrocyte = make_shared<QPixmap>();
+    this->erythrocyte->load(QSTR_ERYTHROCYTE);
 }
 
 shared_ptr<QPixmap> ImageBuffer::getImage(Image type){
@@ -17,6 +23,7 @@ shared_ptr<QPixmap> ImageBuffer::getImage(Image type){
     case BACKGROUND_02: return this->background02;
     case NEBULAR:       return this->nebular;
     case PLAYER:        return this->player;
+    case ERYTHROCYTE:   return this->erythrocyte;
     }
     return nullptr;
 }
