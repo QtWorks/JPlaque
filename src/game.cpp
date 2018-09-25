@@ -17,8 +17,10 @@ Game::Game() :
 void Game::drawContent(QPainter & painter){
     this->background01.draw(painter);
     this->player.draw(painter);
+    std::for_each(this->scoreObjects.begin(), this->scoreObjects.end(),
+                  [&painter](ScoreObject& element){ element.draw(painter); });
     this->background02.draw(painter);
-    this->nebular.draw(painter);
+    this->nebular.draw(painter);    
 }
 
 void Game::start(){
@@ -44,14 +46,26 @@ void Game::processKeyRelease(QKeyEvent * keyPress){
     }
 }
 
+void Game::tryNewScoreObject(quint64 randomNumber){
+    if (randomNumber % 800 == 0){
+        this->scoreObjects.push_back(
+                ScoreObject(this->imageBuffer->getImage(ImageBuffer::ERYTHROCYTE), 1, this->maxWidth, static_cast<int>(QRandomGenerator::system()->generateDouble() * this->maxHeight))
+              );
+    }
+}
+
 void Game::run(){
+    quint64 randomNumber{0};
+
     while (State::RUNNING == this->gameState){
+        randomNumber = QRandomGenerator::system()->generate64();
         this->background01.update();
         this->player.update();
         this->background02.update();
         this->nebular.update();
         std::for_each(this->scoreObjects.begin(), this->scoreObjects.end(),
                       [](ScoreObject& element){ element.update(); });
+        this->tryNewScoreObject(randomNumber);
         std::this_thread::sleep_for(std::chrono::microseconds(SLEEPTIME));
     }
 }

@@ -16,8 +16,9 @@ class ScoreObject : public AnimatedObject, public Drawable
     shared_ptr<QPixmap> image;
     int                 score;
 public:
-    ScoreObject(shared_ptr<QPixmap>image, int score, int startX, int startY) : AnimatedObject(startX, startY), score{score}, image{image}{}
+    ScoreObject(shared_ptr<QPixmap>image, int score, int startX, int startY) : AnimatedObject(Position(startX, startY), Velocity(-0.2, 0)), score{score}, image{image}{}
     void draw(QPainter&) const override;
+    void update() override;
 };
 
 #endif // CONSUMABLES_H

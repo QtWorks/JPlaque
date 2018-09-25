@@ -6,12 +6,14 @@
 struct Position {
     double x;
     double y;
+    Position() : Position(0, 0){}
     Position(double x, double y) : x{x}, y{y}{}
 };
 
 struct Velocity {
     double horizontal;
     double vertical;
+    Velocity() : Velocity(0, 0){}
     Velocity(double horizontal, double vertical) : horizontal{horizontal}, vertical{vertical}{}
 };
 

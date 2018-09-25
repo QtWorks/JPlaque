@@ -5,6 +5,7 @@
 #include <QPainter>
 #include <QDebug>
 #include <QKeyEvent>
+#include <QRandomGenerator>
 
 #include <chrono>
 #include <memory>
@@ -42,7 +43,8 @@ public:
     enum State {RUNNING, GAMEOVER};
 
 private:
-    void run();
+    void tryNewScoreObject(quint64);
+    void run();    
 
     State               gameState;
     ImageBuffer *       imageBuffer;
