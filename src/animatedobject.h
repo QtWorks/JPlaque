@@ -3,6 +3,10 @@
 
 #include <cmath>
 
+namespace {
+    constexpr long PROXIMITY = 0;
+}
+
 struct Position {
     double x;
     double y;

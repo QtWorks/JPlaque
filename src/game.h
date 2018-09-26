@@ -7,8 +7,10 @@
 #include <QKeyEvent>
 #include <QRandomGenerator>
 
+#include <algorithm>
 #include <chrono>
 #include <memory>
+#include <mutex>
 #include <thread>
 #include <vector>
 
@@ -17,12 +19,18 @@
 #include "imagebuffer.h"
 #include "player.h"
 
+using std::lock_guard;
+using std::mutex;
 using std::shared_ptr;
 using std::unique_ptr;
 using std::vector;
+using std::remove_if;
 
 namespace {
-    constexpr long SLEEPTIME = 10;
+    constexpr long UPDATE_SLEEPTIME    = 10;
+    constexpr long COLLISION_SLEEPTIME = 100;
+    constexpr long CHANCE_ERYTHROCYTE  = 600;
+    constexpr long CHANCE_LEUKOCYTE    = 600;
 }
 
 class Game : public QObject
@@ -43,7 +51,9 @@ public:
     enum State {RUNNING, GAMEOVER};
 
 private:
-    void tryNewScoreObject(quint64);
+    bool isCollided();
+    void checkCollisions();
+    void tryNewScoreObject(quint64);    
     void run();    
 
     State               gameState;
@@ -55,6 +65,8 @@ private:
     int                 maxHeight;
     long                gameTick;
     Player              player;
+
+    mutex               scoreObjectsLock;
     vector<ScoreObject> scoreObjects;
     // Enemies
 };

@@ -5,5 +5,5 @@ bool AnimatedObject::isCollidedWith(AnimatedObject & other) const {
     const double B = std::abs(this->position.y - other.position.y);
     const double C = std::sqrt(A * A + B * B);
 
-    return (0 >= C - this->radius - other.radius);
+    return (PROXIMITY >= C - this->radius - other.radius);
 }

@@ -17,15 +17,21 @@ Game::Game() :
 void Game::drawContent(QPainter & painter){
     this->background01.draw(painter);
     this->player.draw(painter);
-    std::for_each(this->scoreObjects.begin(), this->scoreObjects.end(),
-                  [&painter](ScoreObject& element){ element.draw(painter); });
+    {
+        lock_guard<mutex> lock(this->scoreObjectsLock);
+        std::for_each(this->scoreObjects.begin(), this->scoreObjects.end(),
+                      [&painter](ScoreObject& element){ element.draw(painter); });
+    }
+
     this->background02.draw(painter);
     this->nebular.draw(painter);    
 }
 
 void Game::start(){
-    std::thread t{&Game::run, this};
-    t.detach();
+    std::thread updater{&Game::run, this};
+    updater.detach();
+    std::thread collider{&Game::checkCollisions, this};
+    collider.detach();
 }
 
 void Game::processKeyPress(QKeyEvent * keyPress){
@@ -46,11 +52,32 @@ void Game::processKeyRelease(QKeyEvent * keyPress){
     }
 }
 
+void Game::checkCollisions(){
+    static long score{0};
+    while (State::RUNNING == this->gameState){
+        std::this_thread::sleep_for(std::chrono::microseconds(COLLISION_SLEEPTIME));
+        {
+            lock_guard<mutex> lock(this->scoreObjectsLock);
+            for (size_t i = 0; i < this->scoreObjects.size(); i++){
+                ScoreObject & current = this->scoreObjects.at(i);
+
+                if (current.isCollidedWith(this->player)){
+                    score += current.getScore();
+                    qWarning() << "Current score: " << score;
+                    this->scoreObjects.erase(this->scoreObjects.begin() + i);
+                    break;
+                }
+            }
+        }
+    }
+}
+
 void Game::tryNewScoreObject(quint64 randomNumber){
-    if (randomNumber % 800 == 0){
+    if (randomNumber % CHANCE_ERYTHROCYTE == 0){
+        lock_guard<mutex> lock(this->scoreObjectsLock);
         this->scoreObjects.push_back(
                 ScoreObject(this->imageBuffer->getImage(ImageBuffer::ERYTHROCYTE), 1, this->maxWidth, static_cast<int>(QRandomGenerator::system()->generateDouble() * this->maxHeight))
-              );
+        );
     }
 }
 
@@ -63,9 +90,12 @@ void Game::run(){
         this->player.update();
         this->background02.update();
         this->nebular.update();
-        std::for_each(this->scoreObjects.begin(), this->scoreObjects.end(),
-                      [](ScoreObject& element){ element.update(); });
+        {
+            lock_guard<mutex> lock(this->scoreObjectsLock);
+            std::for_each(this->scoreObjects.begin(), this->scoreObjects.end(),
+                          [](ScoreObject& element){ element.update(); });
+        }
         this->tryNewScoreObject(randomNumber);
-        std::this_thread::sleep_for(std::chrono::microseconds(SLEEPTIME));
+        std::this_thread::sleep_for(std::chrono::microseconds(UPDATE_SLEEPTIME));
     }
 }
