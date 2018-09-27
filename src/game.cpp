@@ -32,6 +32,8 @@ void Game::start(){
     updater.detach();
     std::thread collider{&Game::checkCollisions, this};
     collider.detach();
+    std::thread eraser{&Game::clearObjects, this};
+    eraser.detach();
 }
 
 void Game::processKeyPress(QKeyEvent * keyPress){
@@ -49,6 +51,24 @@ void Game::processKeyRelease(QKeyEvent * keyPress){
         case Qt::Key_A: this->player.west  = false; break;
         case Qt::Key_S: this->player.south = false; break;
         case Qt::Key_D: this->player.east  = false; break;
+    }
+}
+
+void Game::clearObjects(){
+    while (State::RUNNING == this->gameState){
+        std::this_thread::sleep_for(std::chrono::microseconds(GARBAGE_SLEEPTIME));
+        {
+            lock_guard<mutex> lock(this->scoreObjectsLock);
+            for (size_t i = 0; i < this->scoreObjects.size(); i++){
+                ScoreObject & current = this->scoreObjects.at(i);
+
+                if (current.isOutOfArea()){
+                    qWarning() << "Current arraysize: " << this->scoreObjects.size();
+                    this->scoreObjects.erase(this->scoreObjects.begin() + i);
+                    break;
+                }
+            }
+        }
     }
 }
 

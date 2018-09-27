@@ -8,3 +8,7 @@ void ScoreObject::update(){
     this->position.x += this->velocity.horizontal;
     this->position.y += this->velocity.vertical;
 }
+
+bool ScoreObject::isOutOfArea() const {
+    return this->position.x + this->image->width() < 0;
+}

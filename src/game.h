@@ -29,6 +29,7 @@ using std::remove_if;
 namespace {
     constexpr long UPDATE_SLEEPTIME    = 10;
     constexpr long COLLISION_SLEEPTIME = 100;
+    constexpr long GARBAGE_SLEEPTIME   = 200;
     constexpr long CHANCE_ERYTHROCYTE  = 600;
     constexpr long CHANCE_LEUKOCYTE    = 600;
 }
@@ -51,9 +52,9 @@ public:
     enum State {RUNNING, GAMEOVER};
 
 private:
-    bool isCollided();
     void checkCollisions();
-    void tryNewScoreObject(quint64);    
+    void clearObjects();
+    void tryNewScoreObject(quint64);
     void run();    
 
     State               gameState;

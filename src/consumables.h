@@ -20,6 +20,7 @@ public:
     void draw(QPainter&) const override;
     void update() override;
     int getScore() const { return this->score; }
+    bool isOutOfArea() const;
 };
 
 #endif // CONSUMABLES_H
