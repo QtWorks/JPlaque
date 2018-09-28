@@ -15,6 +15,8 @@ namespace {
     const QString QSTR_NEBULAR       {":/images/arteria_fog.png"};
     const QString QSTR_PLAYER        {":/images/player.png"};
     const QString QSTR_ERYTHROCYTE   {":/images/bloodcell.png"};
+    const QString QSTR_LEUKOCYTHE    {":/images/leukozyt.png"};
+    const QString QSTR_SEEKER        {":/images/seeker.png"};
 }
 
 class ImageBuffer final {
@@ -23,6 +25,8 @@ class ImageBuffer final {
     shared_ptr<QPixmap> nebular;
     shared_ptr<QPixmap> player;
     shared_ptr<QPixmap> erythrocyte;
+    shared_ptr<QPixmap> leukocythe;
+    shared_ptr<QPixmap> seeker;
 
     ImageBuffer();
     ~ImageBuffer()= default;
@@ -31,7 +35,8 @@ class ImageBuffer final {
 
 public:
     enum Image{
-        BACKGROUND_01, BACKGROUND_02, NEBULAR, PLAYER, ERYTHROCYTE
+        BACKGROUND_01, BACKGROUND_02, NEBULAR, PLAYER, ERYTHROCYTE,
+        LEUKOCYTHE, SEEKER
     };
     static ImageBuffer& getInstance(){
         static ImageBuffer instance;

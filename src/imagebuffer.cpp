@@ -15,6 +15,12 @@ ImageBuffer::ImageBuffer(){
 
     this->erythrocyte = make_shared<QPixmap>();
     this->erythrocyte->load(QSTR_ERYTHROCYTE);
+
+    this->leukocythe = make_shared<QPixmap>();
+    this->leukocythe->load(QSTR_ERYTHROCYTE);
+
+    this->seeker = make_shared<QPixmap>();
+    this->seeker->load(QSTR_ERYTHROCYTE);
 }
 
 shared_ptr<QPixmap> ImageBuffer::getImage(Image type){
@@ -24,6 +30,8 @@ shared_ptr<QPixmap> ImageBuffer::getImage(Image type){
     case NEBULAR:       return this->nebular;
     case PLAYER:        return this->player;
     case ERYTHROCYTE:   return this->erythrocyte;
+    case LEUKOCYTHE:    return this->leukocythe;
+    case SEEKER:        return this->seeker;
     }
     return nullptr;
 }

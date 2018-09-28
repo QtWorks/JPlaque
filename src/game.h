@@ -69,7 +69,8 @@ private:
 
     mutex               scoreObjectsLock;
     vector<ScoreObject> scoreObjects;
-    // Enemies
+
+    vector<unique_ptr<AnimatedObject>> enemies;
 };
 
 #endif // GAME_H
