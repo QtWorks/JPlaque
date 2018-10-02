@@ -7,7 +7,10 @@
 #include <QKeyEvent>
 #include <QCoreApplication>
 
-#include "canvas.h"
+//#include "canvas.h"
+
+#include "gameframe.h"
+#include "startmenu.h"
 
 class MainWindow : public QMainWindow
 {
@@ -18,10 +21,13 @@ public:
     ~MainWindow();
 
 private:
+    void showStartMenu();
+    void showGameFrame();
+    /*
     void buildContentHolder();
 
     QComboBox *contentHolder;
-    Canvas    *canvas;
+    Canvas    *canvas; */
 };
 
 #endif // MAINWINDOW_H

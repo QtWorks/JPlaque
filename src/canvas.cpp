@@ -15,6 +15,11 @@ Canvas::Canvas(QWidget *parent) :
     this->timer.start();
 }
 
+Canvas::~Canvas() {
+    qWarning() << "Canvas will be deleted now.";
+    this->game.stop();
+}
+
 void Canvas::paintEvent(QPaintEvent *event){
     //static long timesPainted{0};
     QPainter painter{this};

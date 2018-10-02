@@ -8,6 +8,7 @@ Game::Game() :
     nebular{this->imageBuffer->getImage(ImageBuffer::Image::NEBULAR), -0.2},
     maxWidth{background01.getWidth()},
     maxHeight{background01.getHeight()},
+    difficulty{0},
     gameTick{0},
     player{this->imageBuffer->getImage(ImageBuffer::Image::PLAYER), Position(50, 100), QSize(maxWidth,maxHeight)}
 {
@@ -22,6 +23,11 @@ void Game::drawContent(QPainter & painter){
         std::for_each(this->scoreObjects.begin(), this->scoreObjects.end(),
                       [&painter](ScoreObject& element){ element.draw(painter); });
     }
+    {
+        lock_guard<mutex> lock(this->enemiesLock);
+        std::for_each(this->enemies.begin(), this->enemies.end(),
+                      [&painter](Enemy & element){ element.draw(painter); });
+    }
 
     this->background02.draw(painter);
     this->nebular.draw(painter);    
@@ -34,6 +40,11 @@ void Game::start(){
     collider.detach();
     std::thread eraser{&Game::clearObjects, this};
     eraser.detach();
+}
+
+void Game::stop(){
+    this->gameState = State::GAMEOVER;
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
 }
 
 void Game::processKeyPress(QKeyEvent * keyPress){
@@ -85,10 +96,26 @@ void Game::checkCollisions(){
                     score += current.getScore();
                     qWarning() << "Current score: " << score;
                     this->scoreObjects.erase(this->scoreObjects.begin() + i);
+                    this->difficulty++;
                     break;
                 }
             }
         }
+        {
+            lock_guard<mutex> lock(this->enemiesLock);
+            for (const Enemy & enemy : this->enemies){
+                if (enemy.isCollidedWith(this->player)){
+                    this->gameState = State::GAMEOVER;
+                }
+            }
+        }
+    }
+}
+
+void Game::tryNewEnemy(quint64 randomNumber){
+    if (this->difficulty >= this->enemies.size()){
+        lock_guard<mutex> lock(this->enemiesLock);
+        this->enemies.push_back(enemyFactory(EnemyType::LEUCOCYTE,this->maxWidth, this->maxHeight));
     }
 }
 
@@ -115,7 +142,13 @@ void Game::run(){
             std::for_each(this->scoreObjects.begin(), this->scoreObjects.end(),
                           [](ScoreObject& element){ element.update(); });
         }
+        {
+            lock_guard<mutex> lock(this->enemiesLock);
+            std::for_each(this->enemies.begin(), this->enemies.end(),
+                          [](Enemy & element){ element.update(); });
+        }
         this->tryNewScoreObject(randomNumber);
+        this->tryNewEnemy(randomNumber);
         std::this_thread::sleep_for(std::chrono::microseconds(UPDATE_SLEEPTIME));
     }
 }

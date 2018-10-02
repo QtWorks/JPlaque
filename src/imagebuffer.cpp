@@ -17,10 +17,10 @@ ImageBuffer::ImageBuffer(){
     this->erythrocyte->load(QSTR_ERYTHROCYTE);
 
     this->leukocythe = make_shared<QPixmap>();
-    this->leukocythe->load(QSTR_ERYTHROCYTE);
+    this->leukocythe->load(QSTR_LEUKOCYTHE);
 
     this->seeker = make_shared<QPixmap>();
-    this->seeker->load(QSTR_ERYTHROCYTE);
+    this->seeker->load(QSTR_SEEKER);
 }
 
 shared_ptr<QPixmap> ImageBuffer::getImage(Image type){

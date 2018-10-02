@@ -16,13 +16,13 @@
 
 #include "ambient.h"
 #include "consumables.h"
+#include "enemies.h"
 #include "imagebuffer.h"
 #include "player.h"
 
 using std::lock_guard;
 using std::mutex;
 using std::shared_ptr;
-using std::unique_ptr;
 using std::vector;
 using std::remove_if;
 
@@ -43,6 +43,7 @@ public:
     virtual ~Game() { this->gameState = State::GAMEOVER; }
     void drawContent(QPainter&);
     void start();
+    void stop();
     int getMaxWidth() const { return this->maxWidth; }
     int getMaxHeight() const { return this->maxHeight; }
     void processKeyPress(QKeyEvent *);
@@ -54,7 +55,8 @@ public:
 private:
     void checkCollisions();
     void clearObjects();
-    void tryNewScoreObject(quint64);
+    void tryNewEnemy(quint64);
+    void tryNewScoreObject(quint64);    
     void run();    
 
     State               gameState;
@@ -64,13 +66,15 @@ private:
     Background          nebular;
     int                 maxWidth;
     int                 maxHeight;
+    size_t              difficulty;
     long                gameTick;
     Player              player;
 
     mutex               scoreObjectsLock;
     vector<ScoreObject> scoreObjects;
 
-    vector<unique_ptr<AnimatedObject>> enemies;
+    mutex               enemiesLock;
+    vector<Enemy>       enemies;
 };
 
 #endif // GAME_H

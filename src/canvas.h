@@ -17,6 +17,7 @@ class Canvas : public QWidget
 public:
     explicit Canvas(QWidget *parent = nullptr);
     QSize getSize() const { return this->size; }
+    ~Canvas() override;
 
 protected:
     bool eventFilter(QObject *, QEvent *) override;

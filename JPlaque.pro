@@ -32,7 +32,9 @@ SOURCES += \
     src/player.cpp \
     src/consumables.cpp \
     src/animatedobject.cpp \
-    src/enemies.cpp
+    src/enemies.cpp \
+    src/gameframe.cpp \
+    src/startmenu.cpp
 
 HEADERS += \
     src/canvas.h \
@@ -44,7 +46,9 @@ HEADERS += \
     src/game.h \
     src/player.h \
     src/consumables.h \
-    src/enemies.h
+    src/enemies.h \
+    src/gameframe.h \
+    src/startmenu.h
 
 FORMS +=
 
