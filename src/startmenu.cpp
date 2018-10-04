@@ -1,27 +1,32 @@
 #include "startmenu.h"
 
-StartMenu::StartMenu(QWidget *parent) : QWidget(parent)
+StartMenu::StartMenu(QWidget *parent) : QGroupBox(parent)
 {
+    this->setMinimumSize(500,500);
     this->build();
     this->connectSignals();
 }
 
 StartMenu::~StartMenu(){
+    qWarning() << "Startmenu will be deleted now";
     disconnect(this->btnStart, SIGNAL(clicked()), this, SLOT(startGame()));
 }
 
 void StartMenu::startGame(){
-    //TODO
+    emit startGameClicked();
 }
 
 void StartMenu::build(){
-    QVBoxLayout vBoxLayout{};
-    this->btnStart = new QPushButton{"Start"};
-    this->btnQuit  = new QPushButton{"Quit"};
+    this->layout       = new QVBoxLayout{this};
+    this->btnStart     = new QPushButton{"Start", this};
+    this->btnHighscore = new QPushButton{"Highscore", this};
+    this->btnQuit      = new QPushButton{"Quit", this};
 
-    vBoxLayout.addWidget(this->btnStart);
-    vBoxLayout.addWidget(this->btnQuit);
-    this->setLayout(&vBoxLayout);
+    this->layout->addWidget(this->btnStart);
+    this->layout->addWidget(this->btnHighscore);
+    this->layout->addWidget(this->btnQuit);
+
+    this->setLayout(this->layout);
 }
 
 void StartMenu::connectSignals(){

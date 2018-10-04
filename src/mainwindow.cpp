@@ -12,10 +12,13 @@ MainWindow::~MainWindow(){
 }
 
 void MainWindow::showStartMenu(){
-    this->setCentralWidget(new StartMenu{this});
+    this->startmenu = new StartMenu{this};
+    connect(startmenu, SIGNAL(startGameClicked()), this, SLOT(showGameFrame()));
+    this->setCentralWidget(startmenu);
 }
 
-void MainWindow::showGameFrame(){
+void MainWindow::showGameFrame(){    
+    disconnect(startmenu, SIGNAL(startGameClicked()), this, SLOT(showGameFrame()));
     this->setCentralWidget(new GameFrame{this});
 }
 

@@ -20,14 +20,12 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-private:
+private slots:
     void showStartMenu();
     void showGameFrame();
-    /*
-    void buildContentHolder();
 
-    QComboBox *contentHolder;
-    Canvas    *canvas; */
+private:
+    StartMenu * startmenu;
 };
 
 #endif // MAINWINDOW_H

@@ -1,0 +1,13 @@
+QGroupBox{
+    background: #451D17;
+}
+
+QPushButton{
+    border: none;
+    background: transparent;
+    color: #FFF;
+    font-size: 24px;
+}
+
+QPushButton{
+}
