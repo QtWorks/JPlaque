@@ -18,10 +18,12 @@ void StartMenu::startGame(){
 
 void StartMenu::build(){
     this->layout       = new QVBoxLayout{this};
+    this->title        = new QLabel{"JPlaque", this};
     this->btnStart     = new QPushButton{"Start", this};
     this->btnHighscore = new QPushButton{"Highscore", this};
     this->btnQuit      = new QPushButton{"Quit", this};
 
+    this->layout->addWidget(this->title, Qt::AlignCenter);
     this->layout->addWidget(this->btnStart);
     this->layout->addWidget(this->btnHighscore);
     this->layout->addWidget(this->btnQuit);

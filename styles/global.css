@@ -2,11 +2,22 @@ QGroupBox{
     background: #451D17;
 }
 
+QLabel{
+    color: #00880B;
+    font-size: 36px;
+    text-align: center;
+    width: 100%;
+}
+
 QPushButton{
     border: none;
     background: transparent;
-    color: #FFF;
+    color: #FFE2C6;
     font-size: 24px;
+}
+
+QPushButton:hover{
+    color: #F4C91C;
 }
 
 QPushButton{
