@@ -15,12 +15,18 @@ void Enemy::update(){
     }
 }
 
+void Enemy::triggerAbillity(Player & player){
+    if (this->abillity == nullptr) return;
+    this->abillity(player);
+}
+
 Enemy enemyFactory(EnemyType type, const int areaWidth, const int areaHeight){
     Position start{QRandomGenerator::system()->generateDouble() * 100 + areaWidth,
                    QRandomGenerator::system()->generateDouble() * areaHeight};
     double speedX{-QRandomGenerator::system()->generateDouble() / 2 + 0.1};
 
     switch (type){
-    default: return Enemy{ImageBuffer::getInstance().getImage(ImageBuffer::Image::LEUKOCYTHE), start, Velocity{speedX, 0}, areaWidth, areaHeight};
+    case EnemyType::SEEKER: return Enemy{ImageBuffer::getInstance().getImage(ImageBuffer::Image::SEEKER), start, Velocity{speedX, 0}, areaWidth, areaHeight};
+    default:                return Enemy{ImageBuffer::getInstance().getImage(ImageBuffer::Image::LEUKOCYTHE), start, Velocity{speedX, 0}, areaWidth, areaHeight};
     }
 }

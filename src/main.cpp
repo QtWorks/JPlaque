@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include <QApplication>
+#include <QFontDatabase>
 
 QString loadStylesheet( QString filename ){
     QFile file(filename);
@@ -13,6 +14,8 @@ QString loadStylesheet( QString filename ){
 int main(int argc, char *argv[]){
     QApplication app(argc, argv);
     MainWindow   window;
+
+    QFontDatabase::addApplicationFont(":/fonts/GoetheBold.ttf");
 
     window.setWindowFlags(Qt::Window | Qt::MSWindowsFixedSizeDialogHint);
     app.setStyleSheet(loadStylesheet(":/styles/global.css"));

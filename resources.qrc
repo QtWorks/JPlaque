@@ -18,5 +18,6 @@
         <file>images/numbers_9.png</file>
         <file>images/player.png</file>
         <file>images/seeker.png</file>
+        <file>fonts/GoetheBold.ttf</file>
     </qresource>
 </RCC>

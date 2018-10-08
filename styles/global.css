@@ -1,12 +1,16 @@
+*{
+    font-family: "Goethe";
+}
+
 QGroupBox{
     background: #451D17;
 }
 
 QLabel{
-    color: #00880B;
-    font-size: 36px;
+    color: #10A82B;
+    font-size: 64px;
     text-align: center;
-    width: 100%;
+    max-height: 100px;
 }
 
 QPushButton{
@@ -14,10 +18,12 @@ QPushButton{
     background: transparent;
     color: #FFE2C6;
     font-size: 24px;
+    max-height: 48px;
 }
 
 QPushButton:hover{
     color: #F4C91C;
+    font-size: 30px;
 }
 
 QPushButton{

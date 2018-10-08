@@ -2,6 +2,7 @@
 #define STARTMENU_H
 
 #include <QGroupBox>
+#include <QApplication>
 #include <QLabel>
 #include <QPushButton>
 #include <QVBoxLayout>

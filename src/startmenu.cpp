@@ -10,6 +10,7 @@ StartMenu::StartMenu(QWidget *parent) : QGroupBox(parent)
 StartMenu::~StartMenu(){
     qWarning() << "Startmenu will be deleted now";
     disconnect(this->btnStart, SIGNAL(clicked()), this, SLOT(startGame()));
+    disconnect(this->btnQuit, SIGNAL(clicked()), QApplication::instance(), SLOT(quit()));
 }
 
 void StartMenu::startGame(){
@@ -23,7 +24,9 @@ void StartMenu::build(){
     this->btnHighscore = new QPushButton{"Highscore", this};
     this->btnQuit      = new QPushButton{"Quit", this};
 
-    this->layout->addWidget(this->title, Qt::AlignCenter);
+    this->title->setAlignment(Qt::AlignCenter);
+
+    this->layout->addWidget(this->title);
     this->layout->addWidget(this->btnStart);
     this->layout->addWidget(this->btnHighscore);
     this->layout->addWidget(this->btnQuit);
@@ -33,4 +36,5 @@ void StartMenu::build(){
 
 void StartMenu::connectSignals(){
     connect(this->btnStart, SIGNAL(clicked()), this, SLOT(startGame()));
+    connect(this->btnQuit, SIGNAL(clicked()), QApplication::instance(), SLOT(quit()));
 }
