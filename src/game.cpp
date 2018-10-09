@@ -113,9 +113,14 @@ void Game::checkCollisions(){
 }
 
 void Game::tryNewEnemy(quint64 randomNumber){
-    if (this->difficulty >= this->enemies.size()){
+    size_t size = this->enemies.size();
+    if (this->difficulty >= size){
         lock_guard<mutex> lock(this->enemiesLock);
-        this->enemies.push_back(enemyFactory(EnemyType::LEUCOCYTE,this->maxWidth, this->maxHeight));
+        if (0 == (size + 1) % 3){
+            this->enemies.push_back(enemyFactory(EnemyType::SEEKER,this->maxWidth, this->maxHeight));
+        } else {
+            this->enemies.push_back(enemyFactory(EnemyType::LEUCOCYTE,this->maxWidth, this->maxHeight));
+        }
     }
 }
 
@@ -145,7 +150,10 @@ void Game::run(){
         {
             lock_guard<mutex> lock(this->enemiesLock);
             std::for_each(this->enemies.begin(), this->enemies.end(),
-                          [](Enemy & element){ element.update(); });
+                          [this](Enemy & element){
+                element.triggerAbillity(this->player);
+                element.update();
+            });
         }
         this->tryNewScoreObject(randomNumber);
         this->tryNewEnemy(randomNumber);

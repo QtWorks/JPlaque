@@ -8,7 +8,7 @@ void Enemy::draw(QPainter & painter) const {
 
 void Enemy::update(){
     this->position.x += this->velocity.horizontal;
-    //this->position.y += this->velocity.vertical;
+    this->position.y += this->velocity.vertical;
     if (0 > this->position.x + image->width()){
         this->position.x = QRandomGenerator::system()->generateDouble() * 100 + this->areaWidth;
         this->position.y = QRandomGenerator::system()->generateDouble() * this->areaHeight;
@@ -17,7 +17,18 @@ void Enemy::update(){
 
 void Enemy::triggerAbillity(Player & player){
     if (this->abillity == nullptr) return;
-    this->abillity(player);
+    this->abillity(*this, player);
+}
+
+void Abillities::seek(Enemy & self, Player & player){
+    Position & currentPosition = self.getPosition();
+    Velocity & currentVelocity = self.getVelocity();
+
+    if (currentPosition.y < player.getPosition().y && currentVelocity.vertical < Abillities::MAX_SPEED){
+        currentVelocity.vertical += Abillities::SPEED_INCREASE;
+    } else if (currentPosition.y > player.getPosition().y && currentVelocity.vertical > -Abillities::MAX_SPEED){
+        currentVelocity.vertical -= Abillities::SPEED_INCREASE;
+    }
 }
 
 Enemy enemyFactory(EnemyType type, const int areaWidth, const int areaHeight){
@@ -26,7 +37,7 @@ Enemy enemyFactory(EnemyType type, const int areaWidth, const int areaHeight){
     double speedX{-QRandomGenerator::system()->generateDouble() / 2 + 0.1};
 
     switch (type){
-    case EnemyType::SEEKER: return Enemy{ImageBuffer::getInstance().getImage(ImageBuffer::Image::SEEKER), start, Velocity{speedX, 0}, areaWidth, areaHeight};
+    case EnemyType::SEEKER: return Enemy{ImageBuffer::getInstance().getImage(ImageBuffer::Image::SEEKER), start, Velocity{speedX, 0}, areaWidth, areaHeight, Abillities::seek};
     default:                return Enemy{ImageBuffer::getInstance().getImage(ImageBuffer::Image::LEUKOCYTHE), start, Velocity{speedX, 0}, areaWidth, areaHeight};
     }
 }

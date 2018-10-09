@@ -38,6 +38,9 @@ public:
     virtual ~AnimatedObject() = default;
     virtual void update() = 0;
     virtual bool isCollidedWith(AnimatedObject&) const;
+
+    Position& getPosition(){ return this->position; }
+    Velocity& getVelocity(){ return this->velocity; }
 };
 
 #endif // ANIMATEDOBJECT_H
